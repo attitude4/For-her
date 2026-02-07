@@ -17,6 +17,13 @@ body {
     margin: 0 auto;
     padding: 20px;
     text-align: center;
+    animation: fadeIn 1.5s ease-in;
+}
+
+/* Day Cards Fade In */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .grid {
@@ -34,69 +41,64 @@ body {
     cursor: pointer;
     transition: 0.3s;
     border: 2px solid transparent;
+    z-index: 10;
 }
 
 .day-card:hover:not(.locked) {
-    transform: translateY(-10px);
+    transform: scale(1.05);
     border-color: var(--pink);
+    box-shadow: 0 10px 25px rgba(255, 77, 109, 0.3);
 }
 
-.locked {
-    filter: grayscale(1);
-    opacity: 0.6;
-    cursor: not-allowed;
+/* FLOATING HEARTS ANIMATION */
+.heart-animation {
+    position: fixed;
+    bottom: -10%; /* Start from bottom */
+    color: #ff4d6d;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1; /* Keep behind cards */
+    animation: floatUp linear forwards;
 }
 
-/* Modal Styling */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Modal Fixes */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 2000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 179, 193, 0.4);
+    backdrop-filter: blur(8px);
 }
 
 .modal-content {
     background: white;
-    margin: 10% auto;
+    margin: 15% auto;
     padding: 30px;
-    width: 80%;
-    max-width: 500px;
+    width: 85%;
+    max-width: 400px;
     border-radius: 30px;
-    position: relative;
-    text-align: center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
 }
 
-.close-btn {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-/* Heart Animation */
-.heart-animation {
-    position: fixed;
-    top: -10%;
-    z-index: -1;
-    animation: fall linear forwards;
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh); }
-}
-
-#yes-btn {
-    background: #ff4d6d;
-    color: white;
+#no-btn {
+    background: #ccc;
     border: none;
-    padding: 10px 25px;
+    padding: 10px 20px;
     border-radius: 20px;
-    font-size: 18px;
-    cursor: pointer;
+    transition: 0.1s; /* Faster movement */
 }
